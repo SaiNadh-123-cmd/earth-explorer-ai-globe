@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				geo: {
+					'blue-dark': '#0A1929',
+					'blue-medium': '#0E3366',
+					'blue-light': '#145DA0',
+					'teal': '#0EA5E9',
+					'highlight': '#33C3F0',
+					'land': '#3B7302',
+					'water': '#1C77C3'
 				}
 			},
 			borderRadius: {
@@ -84,11 +94,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'globe-rotate': {
+					'0%': { transform: 'rotate3d(0, 1, 0, 0deg)' },
+					'100%': { transform: 'rotate3d(0, 1, 0, 360deg)' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'globe-rotate': 'globe-rotate 120s linear infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite'
 			}
 		}
 	},
