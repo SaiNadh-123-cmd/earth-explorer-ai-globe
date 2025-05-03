@@ -12,13 +12,20 @@ interface SidebarProps {
   onLayerToggle: (layer: string, enabled: boolean) => void;
   onSearch: (query: string) => void;
   onViewChange: (view: string) => void;
+  activeLayers?: {[key: string]: boolean};
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
   className,
   onLayerToggle,
   onSearch,
-  onViewChange
+  onViewChange,
+  activeLayers = {
+    political: false,
+    biomes: false,
+    tectonic: false,
+    weather: false
+  }
 }) => {
   return (
     <div className={cn(
@@ -73,34 +80,46 @@ const Sidebar: React.FC<SidebarProps> = ({
           <h2 className="text-sm font-semibold">Map Layers</h2>
         </div>
         
-        <LayerToggle 
-          id="political"
-          label="Political Borders"
-          onChange={(checked) => onLayerToggle('political', checked)} 
-        />
-        
-        <LayerToggle 
-          id="biomes"
-          label="Biomes & Ecosystems"
-          onChange={(checked) => onLayerToggle('biomes', checked)} 
-        />
-        
-        <LayerToggle 
-          id="tectonic"
-          label="Tectonic Plates"
-          onChange={(checked) => onLayerToggle('tectonic', checked)} 
-        />
-        
-        <LayerToggle 
-          id="weather"
-          label="Weather Systems"
-          onChange={(checked) => onLayerToggle('weather', checked)} 
-        />
+        <div className="space-y-2">
+          <LayerToggle 
+            id="political"
+            label="Political Borders"
+            onChange={(checked) => onLayerToggle('political', checked)} 
+            active={activeLayers.political}
+          />
+          
+          <LayerToggle 
+            id="biomes"
+            label="Biomes & Ecosystems"
+            onChange={(checked) => onLayerToggle('biomes', checked)} 
+            active={activeLayers.biomes}
+          />
+          
+          <LayerToggle 
+            id="tectonic"
+            label="Tectonic Plates"
+            onChange={(checked) => onLayerToggle('tectonic', checked)}
+            active={activeLayers.tectonic}
+          />
+          
+          <LayerToggle 
+            id="weather"
+            label="Weather Systems"
+            onChange={(checked) => onLayerToggle('weather', checked)}
+            active={activeLayers.weather}
+          />
+        </div>
       </div>
       
-      <div className="mt-auto text-center">
-        <p className="text-xs text-geo-highlight/70">
-          GeoSphere 360° v0.1
+      <div className="mt-auto pt-4">
+        <div className="px-3 py-2 bg-geo-blue-light/20 rounded-md">
+          <h3 className="text-sm font-semibold text-geo-teal mb-1">Pro Tip</h3>
+          <p className="text-xs text-white/70">
+            Click directly on the globe to select locations and see detailed information about any point on Earth.
+          </p>
+        </div>
+        <p className="text-xs text-center text-geo-highlight/70 mt-2">
+          GeoSphere 360° v0.2 - Real World Data
         </p>
       </div>
     </div>
