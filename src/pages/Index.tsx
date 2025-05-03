@@ -6,6 +6,7 @@ import PlaceInfo from '@/components/PlaceInfo';
 import MapTokenInput from '@/components/MapTokenInput';
 import { toast } from "sonner";
 import { googleMapsConfig } from '@/config/apiConfig';
+import { Map, Info, Search } from 'lucide-react';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<string>('globe');
@@ -149,16 +150,109 @@ const Index = () => {
   // Handle view changes
   const handleViewChange = (view: string) => {
     setCurrentView(view);
-    
-    if (view !== 'globe') {
-      toast.info(`${view.charAt(0).toUpperCase() + view.slice(1)} view will be available in the next update`);
-      // Change back to globe view after notification
-      setTimeout(() => setCurrentView('globe'), 100);
-    }
+    toast.info(`Switched to ${view.charAt(0).toUpperCase() + view.slice(1)} view`);
   };
   
   const handleTokenSave = (token: string) => {
     setGoogleApiKey(token);
+  };
+  
+  // Render appropriate content based on current view
+  const renderContent = () => {
+    switch(currentView) {
+      case 'globe':
+        return (
+          <Globe 
+            autoRotate={!selectedPlace}
+            showPoliticalBorders={activeLayers.political}
+            showBiomes={activeLayers.biomes}
+            showTectonicPlates={activeLayers.tectonic}
+            showWeather={activeLayers.weather}
+            onLocationSelect={handleLocationSelect}
+          />
+        );
+      case 'map':
+        return (
+          <div className="w-full h-full flex items-center justify-center flex-col text-white">
+            <Map className="w-12 h-12 mb-4 text-geo-teal" />
+            <h2 className="text-xl mb-2">2D Map View</h2>
+            <p className="text-center text-white/70 max-w-md">
+              Flat map projection of Earth with interactive controls and the ability to toggle between different map styles.
+            </p>
+          </div>
+        );
+      case 'search':
+        return (
+          <div className="w-full h-full flex items-center justify-center flex-col text-white">
+            <Search className="w-12 h-12 mb-4 text-geo-teal" />
+            <h2 className="text-xl mb-2">Advanced Search</h2>
+            <p className="text-center text-white/70 max-w-md mb-4">
+              Find places, compare locations, and discover interesting facts about anywhere on Earth.
+            </p>
+            <div className="bg-geo-blue-medium p-6 rounded-lg border border-geo-blue-light max-w-md w-full">
+              <h3 className="text-lg mb-3">Search Options</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm mb-1">Search by coordinates</label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      placeholder="Latitude" 
+                      className="flex-1 bg-geo-blue-dark text-white border border-geo-blue-light rounded p-2"
+                    />
+                    <input 
+                      type="text" 
+                      placeholder="Longitude" 
+                      className="flex-1 bg-geo-blue-dark text-white border border-geo-blue-light rounded p-2"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm mb-1">Search by category</label>
+                  <select className="w-full bg-geo-blue-dark text-white border border-geo-blue-light rounded p-2">
+                    <option>Cities</option>
+                    <option>Mountains</option>
+                    <option>Bodies of Water</option>
+                    <option>Historical Sites</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'info':
+        return (
+          <div className="w-full h-full flex items-center justify-center flex-col text-white">
+            <Info className="w-12 h-12 mb-4 text-geo-teal" />
+            <h2 className="text-xl mb-2">About GeoSphere 360°</h2>
+            <div className="bg-geo-blue-medium p-6 rounded-lg border border-geo-blue-light max-w-2xl w-full">
+              <h3 className="text-lg mb-3 text-geo-teal">Application Overview</h3>
+              <p className="mb-4 text-white/80">
+                GeoSphere 360° is an AI-powered interactive Earth exploration platform that combines 
+                real-world geographic data with advanced visualization technology.
+              </p>
+              
+              <h3 className="text-lg mb-2 text-geo-teal">Key Features</h3>
+              <ul className="list-disc list-inside mb-4 space-y-1 text-white/80">
+                <li>Interactive 3D globe with detailed Earth imagery</li>
+                <li>Multiple data layers including political borders, biomes, and weather</li>
+                <li>AI-enhanced search functionality for discovering global locations</li>
+                <li>Real-time location information and detailed statistics</li>
+              </ul>
+              
+              <h3 className="text-lg mb-2 text-geo-teal">Usage Tips</h3>
+              <ul className="list-disc list-inside space-y-1 text-white/80">
+                <li>Drag the globe to rotate the view</li>
+                <li>Click on any location to see detailed information</li>
+                <li>Toggle data layers in the sidebar for different visualizations</li>
+                <li>Use the search function to quickly find specific locations</li>
+              </ul>
+            </div>
+          </div>
+        );
+      default:
+        return <div>Unknown view</div>;
+    }
   };
   
   return (
@@ -177,14 +271,7 @@ const Index = () => {
         
         {/* Content container */}
         <div className="relative h-full flex items-center justify-center overflow-hidden">
-          <Globe 
-            autoRotate={!selectedPlace}
-            showPoliticalBorders={activeLayers.political}
-            showBiomes={activeLayers.biomes}
-            showTectonicPlates={activeLayers.tectonic}
-            showWeather={activeLayers.weather}
-            onLocationSelect={handleLocationSelect}
-          />
+          {renderContent()}
           
           {selectedPlace && (
             <PlaceInfo 
