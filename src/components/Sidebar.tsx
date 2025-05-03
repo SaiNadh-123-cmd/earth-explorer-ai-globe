@@ -15,6 +15,13 @@ interface SidebarProps {
   activeLayers?: {[key: string]: boolean};
 }
 
+const layerDescriptions = {
+  political: "Shows country borders, capitals, major cities and administrative boundaries",
+  biomes: "Displays ecological regions, forests, deserts, grasslands and other natural land cover",
+  tectonic: "Visualizes tectonic plate boundaries, fault lines and geological features",
+  weather: "Real-time weather patterns including precipitation, clouds and temperature"
+};
+
 const Sidebar: React.FC<SidebarProps> = ({ 
   className,
   onLayerToggle,
@@ -84,6 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <LayerToggle 
             id="political"
             label="Political Borders"
+            description={layerDescriptions.political}
             onChange={(checked) => onLayerToggle('political', checked)} 
             active={activeLayers.political}
           />
@@ -91,6 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <LayerToggle 
             id="biomes"
             label="Biomes & Ecosystems"
+            description={layerDescriptions.biomes}
             onChange={(checked) => onLayerToggle('biomes', checked)} 
             active={activeLayers.biomes}
           />
@@ -98,6 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <LayerToggle 
             id="tectonic"
             label="Tectonic Plates"
+            description={layerDescriptions.tectonic}
             onChange={(checked) => onLayerToggle('tectonic', checked)}
             active={activeLayers.tectonic}
           />
@@ -105,6 +115,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <LayerToggle 
             id="weather"
             label="Weather Systems"
+            description={layerDescriptions.weather}
             onChange={(checked) => onLayerToggle('weather', checked)}
             active={activeLayers.weather}
           />
@@ -119,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </p>
         </div>
         <p className="text-xs text-center text-geo-highlight/70 mt-2">
-          GeoSphere 360° v0.2 - Real World Data
+          GeoSphere 360° v0.3 - Real World Data
         </p>
       </div>
     </div>

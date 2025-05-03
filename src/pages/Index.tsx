@@ -1,9 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Globe from '@/components/Globe';
 import Sidebar from '@/components/Sidebar';
 import PlaceInfo from '@/components/PlaceInfo';
+import MapTokenInput from '@/components/MapTokenInput';
 import { toast } from "sonner";
+import { mapboxConfig } from '@/config/apiConfig';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<string>('globe');
@@ -15,6 +17,17 @@ const Index = () => {
   });
   
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
+  const [mapboxToken, setMapboxToken] = useState<string>(() => {
+    // Try to get token from localStorage
+    return localStorage.getItem('mapbox_token') || mapboxConfig.accessToken;
+  });
+  
+  // Save token to localStorage when it changes
+  useEffect(() => {
+    if (mapboxToken) {
+      localStorage.setItem('mapbox_token', mapboxToken);
+    }
+  }, [mapboxToken]);
   
   // Handle layer toggle
   const handleLayerToggle = (layer: string, enabled: boolean) => {
@@ -62,7 +75,7 @@ const Index = () => {
         description: 'Mount Everest is Earth\'s highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas.'
       });
     } else {
-      // If no predefined result, show a basic error toast
+      // If no predefined result, use Mapbox geocoding (in the real implementation)
       toast.error(`No results found for "${query}"`);
     }
   };
@@ -90,6 +103,10 @@ const Index = () => {
     }
   };
   
+  const handleTokenSave = (token: string) => {
+    setMapboxToken(token);
+  };
+  
   return (
     <div className="flex h-screen w-screen overflow-hidden">
       {/* Sidebar */}
@@ -113,6 +130,7 @@ const Index = () => {
             showTectonicPlates={activeLayers.tectonic}
             showWeather={activeLayers.weather}
             onLocationSelect={handleLocationSelect}
+            mapboxToken={mapboxToken}
           />
           
           {selectedPlace && (
@@ -121,6 +139,11 @@ const Index = () => {
               onClose={() => setSelectedPlace(null)}
             />
           )}
+        </div>
+        
+        {/* Token Input */}
+        <div className="absolute top-4 right-4 w-72 z-10">
+          <MapTokenInput onTokenSave={handleTokenSave} className="bg-geo-blue-dark/80 backdrop-blur-md p-3 rounded-md border border-geo-blue-light" />
         </div>
         
         {/* App version and info */}
