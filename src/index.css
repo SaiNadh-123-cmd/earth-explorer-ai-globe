@@ -142,4 +142,25 @@
       margin: auto;
     }
   }
+  
+  /* Orientation prompt animation */
+  @keyframes rotate-device {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    75% { transform: rotate(90deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  .animate-rotate {
+    animation: rotate-device 3s ease-in-out infinite;
+  }
+  
+  /* Enhanced 16:9 container with better centering for landscape mode */
+  @media (orientation: landscape) and (max-width: 1024px) {
+    .mobile-container {
+      width: calc((100vh - 20px) * (16/9));
+      max-width: 100vw;
+      height: calc(100vh - 20px); /* Slight padding to avoid overflow */
+    }
+  }
 }

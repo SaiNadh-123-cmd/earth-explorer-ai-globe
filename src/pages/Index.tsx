@@ -4,10 +4,12 @@ import Globe from '@/components/Globe';
 import Sidebar from '@/components/Sidebar';
 import PlaceInfo from '@/components/PlaceInfo';
 import MapTokenInput from '@/components/MapTokenInput';
+import OrientationPrompt from '@/components/OrientationPrompt';
 import { toast } from "sonner";
 import { googleMapsConfig } from '@/config/apiConfig';
 import { Map, Info, Search } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useOrientation } from '@/hooks/use-orientation';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<string>('globe');
@@ -20,12 +22,29 @@ const Index = () => {
   
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
   const [googleApiKey, setGoogleApiKey] = useState<string>(() => {
-    // Try to get token from localStorage
     return localStorage.getItem('google_api_key') || googleMapsConfig.apiKey;
   });
 
   const isMobile = useIsMobile();
+  const orientation = useOrientation();
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  const [showOrientationPrompt, setShowOrientationPrompt] = useState(false);
+  
+  // Initialize orientation prompt state
+  useEffect(() => {
+    if (isMobile) {
+      // Check if user has dismissed the prompt before
+      const orientationPromptDismissed = localStorage.getItem('orientation_prompt_dismissed');
+      
+      if (!orientationPromptDismissed && orientation === 'portrait') {
+        // Show the prompt after a slight delay to ensure app has loaded
+        const timer = setTimeout(() => {
+          setShowOrientationPrompt(true);
+        }, 1000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isMobile, orientation]);
   
   // Close sidebar on mobile by default
   useEffect(() => {
@@ -186,6 +205,12 @@ const Index = () => {
     setSidebarOpen(!sidebarOpen);
   };
   
+  // Handle orientation prompt dismiss
+  const dismissOrientationPrompt = () => {
+    setShowOrientationPrompt(false);
+    localStorage.setItem('orientation_prompt_dismissed', 'true');
+  };
+  
   // Render appropriate content based on current view
   const renderContent = () => {
     switch(currentView) {
@@ -286,6 +311,11 @@ const Index = () => {
   
   return (
     <div className="flex h-screen w-screen overflow-hidden">
+      {/* Orientation prompt */}
+      {showOrientationPrompt && (
+        <OrientationPrompt onDismiss={dismissOrientationPrompt} />
+      )}
+      
       {/* Mobile sidebar toggle button */}
       {isMobile && (
         <button 
@@ -335,7 +365,7 @@ const Index = () => {
       <div className="flex-1 relative bg-geo-blue-dark">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072')] bg-cover bg-center opacity-10"></div>
         
-        {/* Content container - Add aspect ratio for mobile */}
+        {/* Content container - Adjust for 16:9 ratio on mobile */}
         <div className={`relative h-full flex items-center justify-center overflow-hidden ${isMobile ? 'mobile-container' : ''}`}>
           {renderContent()}
           
@@ -347,7 +377,7 @@ const Index = () => {
           )}
         </div>
         
-        {/* API Key Input */}
+        {/* API Key Input - Adjust position for better mobile visibility */}
         <div className="absolute top-4 right-4 w-72 max-w-[calc(100%-5rem)] z-10">
           <MapTokenInput 
             onTokenSave={handleTokenSave} 
