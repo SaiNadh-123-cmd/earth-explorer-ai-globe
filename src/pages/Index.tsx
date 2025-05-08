@@ -335,8 +335,8 @@ const Index = () => {
       <div className="flex-1 relative bg-geo-blue-dark">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072')] bg-cover bg-center opacity-10"></div>
         
-        {/* Content container */}
-        <div className="relative h-full flex items-center justify-center overflow-hidden">
+        {/* Content container - Add aspect ratio for mobile */}
+        <div className={`relative h-full flex items-center justify-center overflow-hidden ${isMobile ? 'mobile-container' : ''}`}>
           {renderContent()}
           
           {selectedPlace && (

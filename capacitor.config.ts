@@ -13,13 +13,15 @@ const config: CapacitorConfig = {
     backgroundColor: "#050A14",
     allowMixedContent: true,
     captureInput: true,
-    webViewAllowOverscroll: false
+    webViewAllowOverscroll: false,
+    resizeWebView: true
   },
   ios: {
     backgroundColor: "#050A14",
     allowsLinkPreview: false,
     scrollEnabled: false,
-    contentInset: "always"
+    contentInset: "always",
+    preferredContentMode: "mobile"
   }
 };
 

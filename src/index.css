@@ -117,4 +117,29 @@
   .safe-right {
     padding-right: env(safe-area-inset-right);
   }
+  
+  /* 16:9 aspect ratio container for mobile */
+  .aspect-16-9 {
+    aspect-ratio: 16/9;
+  }
+  
+  /* Mobile container with 16:9 ratio that centers content */
+  .mobile-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-container {
+      aspect-ratio: 16/9;
+      max-height: 100vh;
+      margin: auto;
+    }
+  }
 }
