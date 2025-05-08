@@ -10,23 +10,7 @@ const config: CapacitorConfig = {
     cleartext: true
   },
   android: {
-    backgroundColor: "#050A14",
-    allowMixedContent: true,
-    captureInput: true,
-    webViewAllowOverscroll: false,
-    resizeWebView: true,
-    initialFocus: false,
-    showBrowser: false,
-    hardwareBack: true
-  },
-  ios: {
-    backgroundColor: "#050A14",
-    allowsLinkPreview: false,
-    scrollEnabled: false,
-    contentInset: "always",
-    preferredContentMode: "mobile",
-    usesFull: true,
-    limitsNavigationsToAppBoundDomains: true
+    backgroundColor: "#050A14"
   }
 };
 

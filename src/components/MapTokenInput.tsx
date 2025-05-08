@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface MapTokenInputProps {
   onTokenSave: (token: string) => void;
@@ -13,7 +12,6 @@ interface MapTokenInputProps {
 const MapTokenInput: React.FC<MapTokenInputProps> = ({ onTokenSave, className }) => {
   const [token, setToken] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const isMobile = useIsMobile();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +34,7 @@ const MapTokenInput: React.FC<MapTokenInputProps> = ({ onTokenSave, className })
             Enter your Google Maps API key to enable place search. 
             You can get one for free at <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer" className="text-geo-teal underline">Google Cloud Console</a>
           </p>
-          <div className={`${isMobile ? 'flex flex-col' : 'flex'} gap-2`}>
+          <div className="flex gap-2">
             <Input 
               type="text" 
               value={token} 
