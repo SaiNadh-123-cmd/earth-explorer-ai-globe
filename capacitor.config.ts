@@ -10,7 +10,16 @@ const config: CapacitorConfig = {
     cleartext: true
   },
   android: {
-    backgroundColor: "#050A14"
+    backgroundColor: "#050A14",
+    allowMixedContent: true,
+    captureInput: true,
+    webViewAllowOverscroll: false
+  },
+  ios: {
+    backgroundColor: "#050A14",
+    allowsLinkPreview: false,
+    scrollEnabled: false,
+    contentInset: "always"
   }
 };
 

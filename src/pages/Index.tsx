@@ -7,6 +7,7 @@ import MapTokenInput from '@/components/MapTokenInput';
 import { toast } from "sonner";
 import { googleMapsConfig } from '@/config/apiConfig';
 import { Map, Info, Search } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<string>('globe');
@@ -22,6 +23,14 @@ const Index = () => {
     // Try to get token from localStorage
     return localStorage.getItem('google_api_key') || googleMapsConfig.apiKey;
   });
+
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  
+  // Close sidebar on mobile by default
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
   
   // Save token to localStorage when it changes
   useEffect(() => {
@@ -133,6 +142,11 @@ const Index = () => {
         description: `This is an AI-generated description for ${formattedName}. In a full implementation, we would connect to a real geographic database or API to get accurate information about this location.`,
       });
     }
+
+    // On mobile, close the sidebar when search results appear
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
   };
   
   // Handle location selection from the map
@@ -145,16 +159,31 @@ const Index = () => {
     });
     
     toast.info(`Selected: ${location.name}`);
+    
+    // On mobile, close the sidebar when location is selected
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
   };
   
   // Handle view changes
   const handleViewChange = (view: string) => {
     setCurrentView(view);
     toast.info(`Switched to ${view.charAt(0).toUpperCase() + view.slice(1)} view`);
+    
+    // On mobile, close the sidebar when view changes
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
   };
   
   const handleTokenSave = (token: string) => {
     setGoogleApiKey(token);
+  };
+  
+  // Toggle sidebar visibility
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
   };
   
   // Render appropriate content based on current view
@@ -176,7 +205,7 @@ const Index = () => {
           <div className="w-full h-full flex items-center justify-center flex-col text-white">
             <Map className="w-12 h-12 mb-4 text-geo-teal" />
             <h2 className="text-xl mb-2">2D Map View</h2>
-            <p className="text-center text-white/70 max-w-md">
+            <p className="text-center text-white/70 max-w-md px-4">
               Flat map projection of Earth with interactive controls and the ability to toggle between different map styles.
             </p>
           </div>
@@ -186,15 +215,15 @@ const Index = () => {
           <div className="w-full h-full flex items-center justify-center flex-col text-white">
             <Search className="w-12 h-12 mb-4 text-geo-teal" />
             <h2 className="text-xl mb-2">Advanced Search</h2>
-            <p className="text-center text-white/70 max-w-md mb-4">
+            <p className="text-center text-white/70 max-w-md mb-4 px-4">
               Find places, compare locations, and discover interesting facts about anywhere on Earth.
             </p>
-            <div className="bg-geo-blue-medium p-6 rounded-lg border border-geo-blue-light max-w-md w-full">
+            <div className="bg-geo-blue-medium p-4 sm:p-6 rounded-lg border border-geo-blue-light max-w-md w-full mx-4">
               <h3 className="text-lg mb-3">Search Options</h3>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm mb-1">Search by coordinates</label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input 
                       type="text" 
                       placeholder="Latitude" 
@@ -222,10 +251,10 @@ const Index = () => {
         );
       case 'info':
         return (
-          <div className="w-full h-full flex items-center justify-center flex-col text-white">
+          <div className="w-full h-full flex items-center justify-center flex-col text-white overflow-y-auto p-4">
             <Info className="w-12 h-12 mb-4 text-geo-teal" />
             <h2 className="text-xl mb-2">About GeoSphere 360°</h2>
-            <div className="bg-geo-blue-medium p-6 rounded-lg border border-geo-blue-light max-w-2xl w-full">
+            <div className="bg-geo-blue-medium p-4 sm:p-6 rounded-lg border border-geo-blue-light max-w-2xl w-full">
               <h3 className="text-lg mb-3 text-geo-teal">Application Overview</h3>
               <p className="mb-4 text-white/80">
                 GeoSphere 360° is an AI-powered interactive Earth exploration platform that combines 
@@ -257,13 +286,50 @@ const Index = () => {
   
   return (
     <div className="flex h-screen w-screen overflow-hidden">
+      {/* Mobile sidebar toggle button */}
+      {isMobile && (
+        <button 
+          onClick={toggleSidebar}
+          className="absolute top-4 left-4 z-30 bg-geo-blue-medium p-2 rounded-full shadow-lg border border-geo-blue-light"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className="text-geo-teal"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      )}
+      
       {/* Sidebar */}
-      <Sidebar 
-        onLayerToggle={handleLayerToggle}
-        onSearch={handleSearch}
-        onViewChange={handleViewChange}
-        activeLayers={activeLayers}
-      />
+      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+                      transition-transform duration-300 fixed md:relative z-20 h-full 
+                      ${isMobile ? 'w-3/4 sm:w-64' : 'w-64'}`}>
+        <Sidebar 
+          onLayerToggle={handleLayerToggle}
+          onSearch={handleSearch}
+          onViewChange={handleViewChange}
+          activeLayers={activeLayers}
+        />
+      </div>
+      
+      {/* Backdrop for mobile */}
+      {isMobile && sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-10 backdrop-blur-sm" 
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
       
       {/* Main content */}
       <div className="flex-1 relative bg-geo-blue-dark">
@@ -282,7 +348,7 @@ const Index = () => {
         </div>
         
         {/* API Key Input */}
-        <div className="absolute top-4 right-4 w-72 z-10">
+        <div className="absolute top-4 right-4 w-72 max-w-[calc(100%-5rem)] z-10">
           <MapTokenInput 
             onTokenSave={handleTokenSave} 
             className="bg-geo-blue-dark/80 backdrop-blur-md p-3 rounded-md border border-geo-blue-light" 
