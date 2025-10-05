@@ -216,11 +216,56 @@ const Globe: React.FC<GlobeProps> = ({
         .then(response => response.json())
         .then(data => {
           setCountriesData(data);
+          
+          // Draw country borders on the globe
+          if (data.features && globeRef.current) {
+            data.features.forEach((feature: any) => {
+              if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+                const coordinates = feature.geometry.type === 'Polygon' 
+                  ? [feature.geometry.coordinates] 
+                  : feature.geometry.coordinates;
+                
+                coordinates.forEach((polygon: any) => {
+                  polygon.forEach((ring: any) => {
+                    const points: THREE.Vector3[] = [];
+                    
+                    ring.forEach((coord: [number, number]) => {
+                      const [lng, lat] = coord;
+                      
+                      // Convert lat/long to 3D coordinates on sphere
+                      const phi = (90 - lat) * (Math.PI / 180);
+                      const theta = (lng + 180) * (Math.PI / 180);
+                      
+                      const x = -(101 * Math.sin(phi) * Math.cos(theta));
+                      const y = 101 * Math.cos(phi);
+                      const z = 101 * Math.sin(phi) * Math.sin(theta);
+                      
+                      points.push(new THREE.Vector3(x, y, z));
+                    });
+                    
+                    // Create line geometry for border
+                    if (points.length > 1) {
+                      const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+                      const lineMaterial = new THREE.LineBasicMaterial({ 
+                        color: 0x00ff88,
+                        linewidth: 1,
+                        opacity: 0.6,
+                        transparent: true
+                      });
+                      const line = new THREE.Line(lineGeometry, lineMaterial);
+                      globeRef.current?.add(line);
+                    }
+                  });
+                });
+              }
+            });
+          }
+          
           setMapLoaded(true);
         })
         .catch(error => {
           console.error("Error loading country data:", error);
-          setMapLoaded(true); // Still mark as loaded even if there's an error
+          setMapLoaded(true);
         });
     } else {
       setMapLoaded(true);
