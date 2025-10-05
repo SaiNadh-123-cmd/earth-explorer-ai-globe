@@ -4,6 +4,7 @@ import Globe from '@/components/Globe';
 import Sidebar from '@/components/Sidebar';
 import PlaceInfo from '@/components/PlaceInfo';
 import MapTokenInput from '@/components/MapTokenInput';
+import Footer from '@/components/Footer';
 import { toast } from "sonner";
 import { googleMapsConfig } from '@/config/apiConfig';
 import { Map, Info, Search } from 'lucide-react';
@@ -256,44 +257,63 @@ const Index = () => {
   };
   
   return (
-    <div className="flex h-screen w-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar 
-        onLayerToggle={handleLayerToggle}
-        onSearch={handleSearch}
-        onViewChange={handleViewChange}
-        activeLayers={activeLayers}
-      />
-      
-      {/* Main content */}
-      <div className="flex-1 relative bg-geo-blue-dark">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072')] bg-cover bg-center opacity-10"></div>
+    <div className="flex flex-col h-screen w-screen overflow-hidden">
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <Sidebar 
+          onLayerToggle={handleLayerToggle}
+          onSearch={handleSearch}
+          onViewChange={handleViewChange}
+          activeLayers={activeLayers}
+        />
         
-        {/* Content container */}
-        <div className="relative h-full flex items-center justify-center overflow-hidden">
-          {renderContent()}
+        {/* Main content */}
+        <div className="flex-1 relative bg-geo-blue-dark">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072')] bg-cover bg-center opacity-10"></div>
           
-          {selectedPlace && (
-            <PlaceInfo 
-              place={selectedPlace} 
-              onClose={() => setSelectedPlace(null)}
+          {/* Ad Space - Top Banner */}
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 w-[728px] max-w-[90%]">
+            <div className="p-4 bg-muted/80 backdrop-blur-sm rounded-lg border-2 border-dashed border-muted-foreground/30 text-center">
+              <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
+            </div>
+          </div>
+          
+          {/* Content container */}
+          <div className="relative h-full flex items-center justify-center overflow-hidden">
+            {renderContent()}
+            
+            {selectedPlace && (
+              <PlaceInfo 
+                place={selectedPlace} 
+                onClose={() => setSelectedPlace(null)}
+              />
+            )}
+          </div>
+          
+          {/* API Key Input */}
+          <div className="absolute top-24 right-4 w-72 z-10">
+            <MapTokenInput 
+              onTokenSave={handleTokenSave} 
+              className="bg-geo-blue-dark/80 backdrop-blur-md p-3 rounded-md border border-geo-blue-light" 
             />
-          )}
-        </div>
-        
-        {/* API Key Input */}
-        <div className="absolute top-4 right-4 w-72 z-10">
-          <MapTokenInput 
-            onTokenSave={handleTokenSave} 
-            className="bg-geo-blue-dark/80 backdrop-blur-md p-3 rounded-md border border-geo-blue-light" 
-          />
-        </div>
-        
-        {/* App version and info */}
-        <div className="absolute bottom-2 right-2 text-xs text-white/50">
-          GeoSphere 360° – AI-Powered Earth Explorer
+          </div>
+          
+          {/* Ad Space - Sidebar Right */}
+          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
+            <div className="p-4 bg-muted/80 backdrop-blur-sm rounded-lg border-2 border-dashed border-muted-foreground/30 text-center w-[160px]">
+              <p className="text-xs text-muted-foreground">Ad Space 160x600</p>
+            </div>
+          </div>
+          
+          {/* App version and info */}
+          <div className="absolute bottom-2 right-2 text-xs text-white/50">
+            GeoSphere 360° – AI-Powered Earth Explorer
+          </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
