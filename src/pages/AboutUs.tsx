@@ -13,11 +13,6 @@ const AboutUs = () => {
           </Button>
         </Link>
 
-        {/* Ad Space - Top */}
-        <div className="mb-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
-
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1 className="text-4xl font-bold mb-2">About GeoSphere 360°</h1>
           <p className="text-xl text-muted-foreground mb-8">
@@ -132,19 +127,65 @@ const AboutUs = () => {
               We are constantly working on new features and improvements, including:
             </p>
             <ul className="list-disc pl-6 mb-4">
-              <li>Enhanced real-time weather visualization</li>
-              <li>Historical climate data and time-series analysis</li>
-              <li>Augmented reality features for mobile devices</li>
-              <li>Collaborative tools for educational institutions</li>
-              <li>Expanded data layers including ocean currents and air quality</li>
+              <li>Enhanced real-time weather visualization with predictive models</li>
+              <li>Historical climate data and time-series analysis tools</li>
+              <li>Augmented reality features for immersive mobile experiences</li>
+              <li>Collaborative tools for educational institutions and research teams</li>
+              <li>Expanded data layers including ocean currents, air quality, and biodiversity hotspots</li>
+              <li>Integration with satellite imagery for real-time Earth observation</li>
+              <li>Advanced filtering and comparison tools for environmental studies</li>
             </ul>
           </section>
-        </article>
 
-        {/* Ad Space - Bottom */}
-        <div className="mt-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">Use Cases</h2>
+            <p className="mb-4">
+              GeoSphere 360° serves diverse audiences and purposes:
+            </p>
+            <div className="space-y-4 mb-4">
+              <div>
+                <h3 className="text-lg font-semibold">Education</h3>
+                <p className="text-muted-foreground">
+                  Teachers and students use our platform to explore geography, environmental science, and geology in an interactive way. The visual nature of our tool makes complex concepts easier to understand and remember.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Research</h3>
+                <p className="text-muted-foreground">
+                  Researchers utilize our data visualization capabilities to identify patterns, study ecosystems, and present findings in an accessible format.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Travel Planning</h3>
+                <p className="text-muted-foreground">
+                  Travelers explore destinations in detail, understanding terrain, climate zones, and geographic context before their journeys.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Environmental Awareness</h3>
+                <p className="text-muted-foreground">
+                  Environmental advocates use our platform to understand and communicate the impacts of climate change, deforestation, and other ecological challenges.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">Data Sources and Accuracy</h2>
+            <p className="mb-4">
+              We aggregate data from multiple reputable sources including:
+            </p>
+            <ul className="list-disc pl-6 mb-4">
+              <li>Natural Earth - for political boundaries and geographic features</li>
+              <li>OpenStreetMap - for detailed location data</li>
+              <li>NASA Earth Observations - for environmental and climate data</li>
+              <li>USGS - for geological and tectonic information</li>
+            </ul>
+            <p className="mb-4">
+              All data is processed and visualized to ensure optimal performance while maintaining accuracy. We regularly update our datasets to reflect the latest information available.
+            </p>
+          </section>
+        </article>
       </div>
     </div>
   );

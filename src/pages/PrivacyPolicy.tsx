@@ -13,11 +13,6 @@ const PrivacyPolicy = () => {
           </Button>
         </Link>
 
-        {/* Ad Space - Top */}
-        <div className="mb-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
-
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
           <p className="text-muted-foreground mb-8">Last Updated: {new Date().toLocaleDateString()}</p>
@@ -101,7 +96,34 @@ const PrivacyPolicy = () => {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">9. Contact Us</h2>
+            <h2 className="text-2xl font-semibold mb-4">9. International Data Transfers</h2>
+            <p className="mb-4">
+              Your information may be transferred to and maintained on computers located outside of your state, province, country, or other governmental jurisdiction where data protection laws may differ. We take appropriate measures to ensure your data receives adequate protection.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">10. California Privacy Rights</h2>
+            <p className="mb-4">
+              California residents have specific rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information is collected, to delete personal information, and to opt-out of the sale of personal information. We do not sell personal information.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">11. GDPR Compliance</h2>
+            <p className="mb-4">
+              For users in the European Economic Area (EEA), we comply with the General Data Protection Regulation (GDPR). This includes:
+            </p>
+            <ul className="list-disc pl-6 mb-4">
+              <li>Processing data lawfully, fairly, and transparently</li>
+              <li>Collecting data only for specified, explicit purposes</li>
+              <li>Ensuring data accuracy and limiting storage duration</li>
+              <li>Maintaining data security and confidentiality</li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">12. Contact Us</h2>
             <p className="mb-4">
               If you have any questions about this Privacy Policy, please contact us at:{" "}
               <a href="mailto:podcastonrealincidents@gmail.com" className="text-primary hover:underline">
@@ -110,11 +132,6 @@ const PrivacyPolicy = () => {
             </p>
           </section>
         </article>
-
-        {/* Ad Space - Bottom */}
-        <div className="mt-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
       </div>
     </div>
   );

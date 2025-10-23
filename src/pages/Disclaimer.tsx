@@ -13,11 +13,6 @@ const Disclaimer = () => {
           </Button>
         </Link>
 
-        {/* Ad Space - Top */}
-        <div className="mb-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
-
         <article className="prose prose-slate dark:prose-invert max-w-none">
           <h1 className="text-4xl font-bold mb-2">Disclaimer</h1>
           <p className="text-muted-foreground mb-8">Last Updated: {new Date().toLocaleDateString()}</p>
@@ -110,7 +105,21 @@ const Disclaimer = () => {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">9. Contact Information</h2>
+            <h2 className="text-2xl font-semibold mb-4">9. User-Generated Content</h2>
+            <p className="mb-4">
+              Any searches, inputs, or interactions you make with GeoSphere 360° are processed to provide you with relevant results. We do not store search queries for extended periods and do not use them for purposes other than improving our service.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">10. External Links and Integrations</h2>
+            <p className="mb-4">
+              Our application integrates with third-party services including mapping APIs. When you use these features, you may be subject to the terms and policies of those external providers. We encourage you to review their documentation.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">11. Contact Information</h2>
             <p className="mb-4">
               If you have any questions regarding this disclaimer, please contact us at:{" "}
               <a href="mailto:podcastonrealincidents@gmail.com" className="text-primary hover:underline">
@@ -119,11 +128,6 @@ const Disclaimer = () => {
             </p>
           </section>
         </article>
-
-        {/* Ad Space - Bottom */}
-        <div className="mt-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
       </div>
     </div>
   );

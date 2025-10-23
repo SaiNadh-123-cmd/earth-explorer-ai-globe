@@ -16,13 +16,6 @@ const TermsAndConditions = () => {
 
         <h1 className="text-4xl font-bold mb-8">Terms and Conditions</h1>
 
-        {/* Ad Space - Top Banner */}
-        <div className="mb-8">
-          <div className="p-4 bg-muted/50 rounded-lg border-2 border-dashed border-muted-foreground/30 text-center">
-            <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-          </div>
-        </div>
-
         <div className="prose prose-slate dark:prose-invert max-w-none">
           <p className="text-muted-foreground text-lg mb-6">
             Last Updated: {new Date().toLocaleDateString()}
@@ -34,13 +27,6 @@ const TermsAndConditions = () => {
               By accessing and using GeoSphere 360° ("the Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these Terms and Conditions, please do not use this Service.
             </p>
           </section>
-
-          {/* Ad Space - In-content */}
-          <div className="my-8">
-            <div className="p-4 bg-muted/50 rounded-lg border-2 border-dashed border-muted-foreground/30 text-center">
-              <p className="text-sm text-muted-foreground">Advertisement Space - 336x280</p>
-            </div>
-          </div>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">2. Use License</h2>
@@ -73,13 +59,6 @@ const TermsAndConditions = () => {
               Users should not rely solely on our Service for critical navigation, planning, or decision-making purposes.
             </p>
           </section>
-
-          {/* Ad Space - In-content */}
-          <div className="my-8">
-            <div className="p-4 bg-muted/50 rounded-lg border-2 border-dashed border-muted-foreground/30 text-center">
-              <p className="text-sm text-muted-foreground">Advertisement Space - 300x250</p>
-            </div>
-          </div>
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">5. API Keys and Third-Party Services</h2>
@@ -140,7 +119,28 @@ const TermsAndConditions = () => {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">12. Contact Information</h2>
+            <h2 className="text-2xl font-semibold mb-4">12. Privacy and Data Collection</h2>
+            <p className="text-muted-foreground mb-4">
+              Your use of the Service is also governed by our Privacy Policy. By using GeoSphere 360°, you consent to the collection and use of information as outlined in our Privacy Policy.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">13. Dispute Resolution</h2>
+            <p className="text-muted-foreground mb-4">
+              Any disputes arising from these Terms and Conditions or use of the Service shall first be attempted to be resolved through good faith negotiations. If negotiations fail, disputes may be subject to binding arbitration.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">14. Severability</h2>
+            <p className="text-muted-foreground mb-4">
+              If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary so that these Terms shall otherwise remain in full force and effect.
+            </p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">15. Contact Information</h2>
             <p className="text-muted-foreground mb-4">
               If you have any questions about these Terms and Conditions, please contact us at:
             </p>
@@ -150,13 +150,6 @@ const TermsAndConditions = () => {
               </a>
             </p>
           </section>
-        </div>
-
-        {/* Ad Space - Bottom Banner */}
-        <div className="mt-8">
-          <div className="p-4 bg-muted/50 rounded-lg border-2 border-dashed border-muted-foreground/30 text-center">
-            <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-          </div>
         </div>
       </div>
 

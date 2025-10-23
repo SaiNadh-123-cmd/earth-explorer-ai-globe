@@ -49,11 +49,6 @@ const ContactUs = () => {
           </Button>
         </Link>
 
-        {/* Ad Space - Top */}
-        <div className="mb-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
-        </div>
-
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Contact Us</h1>
           <p className="text-xl text-muted-foreground">
@@ -178,12 +173,33 @@ const ContactUs = () => {
                 We're currently developing API access. Contact us to express your interest and we'll notify you when it becomes available.
               </p>
             </div>
+            <div>
+              <h3 className="font-semibold mb-1">What browsers are supported?</h3>
+              <p className="text-sm text-muted-foreground">
+                GeoSphere 360° works best on modern browsers including Chrome, Firefox, Safari, and Edge. We recommend keeping your browser updated for optimal performance.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-1">Can I embed GeoSphere 360° on my website?</h3>
+              <p className="text-sm text-muted-foreground">
+                Embedding options are available for educational institutions and organizations. Please contact us to discuss your specific needs.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Ad Space - Bottom */}
-        <div className="mt-8 p-4 bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 text-center">
-          <p className="text-sm text-muted-foreground">Advertisement Space - 728x90</p>
+        <div className="bg-muted/30 p-6 rounded-lg mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Support Resources</h2>
+          <p className="mb-4">
+            Before contacting us, you may find answers in our comprehensive documentation and help resources:
+          </p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>User guides and tutorials for getting started with the 3D globe interface</li>
+            <li>Layer explanations covering political borders, biomes, and tectonic plates</li>
+            <li>Search functionality tips for finding specific locations quickly</li>
+            <li>API key setup instructions for Google Maps integration</li>
+            <li>Troubleshooting common issues with performance and display</li>
+          </ul>
         </div>
       </div>
     </div>
